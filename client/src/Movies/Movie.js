@@ -18,6 +18,11 @@ function Movie({ addToSavedList }) {
     addToSavedList(movie);
   };
 
+  const updateMovie = () => {
+    
+  };
+
+
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
@@ -29,7 +34,9 @@ function Movie({ addToSavedList }) {
   return (
     <div className="save-wrapper">
       <MovieCard movie={movie} />
-
+      <div className="update-button" onClick={updateMovie}>
+        Update
+      </div>
       <div className="save-button" onClick={saveMovie}>
         Save
       </div>
