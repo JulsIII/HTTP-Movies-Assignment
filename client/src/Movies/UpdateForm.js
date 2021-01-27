@@ -13,19 +13,20 @@ const initialMovie = {
 const UpdateForm = props => {
   const { push } = useHistory();
   const [movie, setMovie] = useState(initialMovie);
-  // const id = props.match.params.id;
   const { id } = useParams();
-  
+  // const id = props.match.params.id;
+
   useEffect(()=>{
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then(res=>{
         setMovie(res.data);
+        console.log(res);
       })
       .catch(err=>{
         console.log(err);
       });
-  }, []);
+  }, []); 
 
   const changeHandler = ev => {
     ev.persist();
@@ -45,8 +46,8 @@ const UpdateForm = props => {
     axios
       .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then(res=>{
-        props.setMovies(res.data);
-        push(`/movie-list/${id}`);
+        // props.setMovieList([res.data]);
+        push(`/`);
       })
       .catch(err=>{
         console.log(err);
