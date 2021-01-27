@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
-const initialItem = {
+const initialMovie = {
     id: 5,
     title: 'Tombstone',
     director: 'George P. Cosmatos',
@@ -12,7 +12,7 @@ const initialItem = {
 
 const UpdateForm = props => {
   const { push } = useHistory();
-  const [item, setItem] = useState(initialItem);
+  const [movie, setMovie] = useState(initialMovie);
   // const id = props.match.params.id;
   const { id } = useParams();
   
@@ -20,7 +20,7 @@ const UpdateForm = props => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
       .then(res=>{
-        setItem(res.data);
+        setMovie(res.data);
       })
       .catch(err=>{
         console.log(err);
@@ -30,12 +30,12 @@ const UpdateForm = props => {
   const changeHandler = ev => {
     ev.persist();
     let value = ev.target.value;
-    if (ev.target.name === "price") {
-      value = parseInt(value, 10);
+    if (ev.target.name === "metascore") {
+      value = parseInt(value, 100);
     }
 
-    setItem({
-      ...item,
+    setMovie({
+      ...movie,
       [ev.target.name]: value
     });
   };
@@ -43,10 +43,10 @@ const UpdateForm = props => {
   const handleSubmit = e => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/api/movies/${id}`, item)
+      .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then(res=>{
-        props.setItems(res.data);
-        push(`/item-list/${id}`);
+        props.setMovies(res.data);
+        push(`/movie-list/${id}`);
       })
       .catch(err=>{
         console.log(err);
@@ -59,46 +59,46 @@ const UpdateForm = props => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="name"
+          name="id"
           onChange={changeHandler}
           placeholder="id"
-          value={item.name}
+          value={movie.id}
         />
         <div className="baseline" />
 
         <input
           type="number"
-          name="price"
+          name="title"
           onChange={changeHandler}
           placeholder="title"
-          value={item.price}
+          value={movie.title}
         />
         <div className="baseline" />
 
         <input
           type="string"
-          name="imageUrl"
+          name="director"
           onChange={changeHandler}
           placeholder="director"
-          value={item.imageUrl}
+          value={movie.director}
         />
         <div className="baseline" />
 
         <input
           type="string"
-          name="description"
+          name="metascore"
           onChange={changeHandler}
           placeholder="metascore"
-          value={item.description}
+          value={movie.metascore}
         />
         <div className="baseline" />
 
         <input
           type="string"
-          name="shipping"
+          name="stars"
           onChange={changeHandler}
           placeholder="stars"
-          value={item.shipping}
+          value={movie.stars}
         />
         <div className="baseline" />
 

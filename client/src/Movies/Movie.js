@@ -24,7 +24,6 @@ function Movie({ addToSavedList }) {
     push(`/update-movie/${params.id}`);
   };
 
-
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
