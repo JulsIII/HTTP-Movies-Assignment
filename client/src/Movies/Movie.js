@@ -26,8 +26,16 @@ function Movie({ addToSavedList }) {
 
   const deleteMovie = () => {
     console.log('Delete Clicked');
-    push(`/update-movie/${params.id}`);
-  };
+      axios.delete(`http://localhost:5000/api/movies/${id}`)
+        .then(res=>{
+          props.setMovieList(res.data);
+          push('/movies');
+        })
+        .catch(err=>{
+          console.log(err);
+        })
+    };
+
 
   useEffect(() => {
     fetchMovie(params.id);
