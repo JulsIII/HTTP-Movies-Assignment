@@ -24,17 +24,19 @@ function Movie({ addToSavedList }) {
     push(`/update-movie/${params.id}`);
   };
 
-  const deleteMovie = () => {
-    console.log('Delete Clicked');
-      axios.delete(`http://localhost:5000/api/movies/${id}`)
-        .then(res=>{
-          props.setMovieList(res.data);
-          push('/movies');
-        })
-        .catch(err=>{
-          console.log(err);
-        })
-    };
+  const deleteMovie = (e) => {
+    
+    e.preventDefault();
+    axios
+
+      .delete(`http://localhost:5000/api/movies/${params.id}`)
+      .then((res) => {
+        setMovieList(movieList.filter((movie) => movie.id !== res.data));
+        push("/");
+
+      })
+      .catch((err) => console.log(err));
+  };
 
 
   useEffect(() => {
